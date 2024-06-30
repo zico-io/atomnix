@@ -10,6 +10,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-hardware.url = "github:/nixos/nixos-hardware/master";
     snowfall-lib.url = "github:snowfallorg/lib";
+    disko.url = "github:nix-community/impermanence";
     home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR";
     stylix.url = "github:danth/stylix";
@@ -47,7 +48,8 @@
       ];
 
       systems.modules.nixos = with inputs; [
-        home-manager.nixosModules.home-manager
+        home-manager.nixosModules.default
+        impermanence.nixosModules.impermanence
         stylix.nixosModules.stylix
         nur.nixosModules.nur
       ];
