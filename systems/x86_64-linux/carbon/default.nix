@@ -18,6 +18,7 @@ with lib.atomnix; {
       network = enabled;
     };
     apps = {
+      dunst = enabled;
       firefox = enabled;
       rofi = enabled;
       wezterm = enabled;
