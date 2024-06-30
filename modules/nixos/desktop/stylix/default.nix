@@ -16,18 +16,13 @@ in {
 
   config = mkIf cfg.enable {
     stylix = {
-        enable = true;
-        inherit (cfg) polarity;
-        image = ./wp.png;
-        base16Scheme = colorScheme;
+      enable = true;
+      inherit (cfg) polarity;
+      image = ./wp.png;
+      base16Scheme = colorScheme;
     };
     atomnix.system.home.extraOptions = {
-      stylix = {
-        enable = true;
-        # inherit (cfg) polarity;
-        # image = ./wp.png;
-        # base16Scheme = colorScheme;
-      };
+      stylix = enabled;
     };
   };
 }
