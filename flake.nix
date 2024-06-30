@@ -55,6 +55,7 @@
       ];
 
       homes.modules = with inputs; [
+        impermanence.nixosModules.home-manager.impermanence
         nix-colors.homeManagerModules.default
       ];
     };
