@@ -1,8 +1,7 @@
 {
-  options,
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 with lib;
@@ -10,11 +9,11 @@ with lib.atomnix; let
   cfg = config.atomnix.system.fonts;
 in {
   options.atomnix.system.fonts = with types; {
-    enable = mkBoolOpt false "Enable fonts configuration?";
+    enable = mkBoolOpt false "Enable system-wide fonts?";
     fonts = mkOpt (listOf package) [] "Custom font packages to install.";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [font-manager];
 
     fonts = {
@@ -26,6 +25,9 @@ in {
           cantarell-fonts # GNOME 3 default font
           font-awesome
           sf-mono-liga
+          # apple-fonts.sf-pro-nerd
+          # apple-fonts.sf-mono-nerd
+          # apple-fonts.sf-compact-nerd
           (nerdfonts.override {
             fonts = [
               "CascadiaCode" # Windows Terminal default font
@@ -42,14 +44,10 @@ in {
         hinting = {
           enable = true;
           autohint = true;
-          style = "full"; # TODO: check
         };
-
         defaultFonts = {
           emoji = ["Segoe UI Emoji" "Noto Fonts Emoji"];
         };
-
-        subpixel.lcdfilter = "default"; # TODO: check
       };
     };
   };

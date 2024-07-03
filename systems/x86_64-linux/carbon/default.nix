@@ -1,32 +1,52 @@
 {
   lib,
+  system,
   inputs,
+  pkgs,
   ...
 }:
 with lib;
 with lib.atomnix; {
   imports = [
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
     ./hardware.nix
   ];
 
-  atomnix = {
-    system.systemd-boot = enabled;
-    suites.common = enabled;
-    hardware = {
-      audio = enabled;
-      network = enabled;
-    };
-    apps = {
-      dunst = enabled;
-      firefox = enabled;
-      rofi = enabled;
-      wezterm = enabled;
-      waybar = enabled;
-    };
-    desktop = {
-      stylix = enabled;
-      hyprland = enabled;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  programs = {
+    git = enabled;
+    zsh = enabled;
+    steam = enabled;
+  };
+
+  stylix = {
+    enable = true;
+    polarity = "dark";
+    image = ./wp.png;
+    base16Scheme = "${inputs.tt-schemes}/base16/gruvbox-dark-pale.yaml";
+    fonts = {
+      monospace = {
+        package = pkgs.sf-mono-liga;
+        name = "Liga SFMono Nerd Font";
+      };
     };
   };
+
+  atomnix = {
+    hardware.network = enabled;
+    system = {
+      locale = enabled;
+      greetd = enabled;
+    };
+    graphical.desktop = "hyprland";
+  };
+
+  services.flatpak.enable = true;
+
+  environment.systemPackages = with inputs; [
+    nixvim.packages.${system}.default
+  ];
+
+  system.stateVersion = "24.05";
 }
