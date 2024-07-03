@@ -19,12 +19,9 @@ in {
   };
 
   home = {
-    programs = {
-      thunderbird = enabled;
-      figma-linux = enabled;
-    };
-
     packages = with pkgs; [
+      figma-linux
+      thunderbird
       vesktop
       tome4
     ];

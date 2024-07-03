@@ -19,7 +19,7 @@ in {
       powertop = enabled;
     };
 
-    service = {
+    services = {
       thermald = enabled;
       logind = {
         extraConfig = "HandlePowerKey=suspend";
