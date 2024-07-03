@@ -44,8 +44,9 @@ with lib.atomnix; {
 
   services.flatpak.enable = true;
 
-  environment.systemPackages = with inputs; [
-    nixvim.packages.${system}.default
+  environment.systemPackages = [
+    inputs.nixvim.packages.${system}.default
+    pkgs.devenv
   ];
 
   system.stateVersion = "24.05";

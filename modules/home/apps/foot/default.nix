@@ -17,6 +17,7 @@ in {
       settings = {
         main = {
           term = "xterm-256color";
+          font = mkForce "Liga SFMono Nerd Font:size=12";
           dpi-aware = mkForce "yes";
           pad = "8x4";
         };
