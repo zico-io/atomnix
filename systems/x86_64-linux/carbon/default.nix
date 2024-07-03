@@ -20,6 +20,8 @@ with lib.atomnix; {
     steam = enabled;
   };
 
+  atomnix.tools.batmon = enabled;
+
   stylix = {
     enable = true;
     polarity = "dark";
