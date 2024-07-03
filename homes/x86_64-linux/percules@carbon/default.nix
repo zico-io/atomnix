@@ -12,13 +12,21 @@ with lib.atomnix; let
 in {
   atomnix = {
     graphical.desktop = "hyprland";
-    apps.firefox = enabled;
+    apps = {
+      firefox = enabled;
+      vscode = enabled;
+    };
   };
 
   home = {
+    programs = {
+      thunderbird = enabled;
+      figma-linux = enabled;
+    };
+
     packages = with pkgs; [
       vesktop
-      tome4 
+      tome4
     ];
 
     stateVersion = "23.11";

@@ -16,5 +16,10 @@ in {
       hardware.audio = enabled;
       system.fonts = enabled;
     };
+
+    systemd.user.services = {
+      pipewire.wantedBy = ["graphical-session.target"];
+      pipewire-pulse.wantedBy = ["graphical-session.target"];
+    };
   };
 }
