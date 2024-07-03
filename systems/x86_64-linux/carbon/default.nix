@@ -15,12 +15,11 @@ with lib.atomnix; {
   boot.loader.efi.canTouchEfiVariables = true;
 
   programs = {
+    ssh.startAgent = true;
     git = enabled;
     zsh = enabled;
     steam = enabled;
   };
-
-  atomnix.tools.batmon = enabled;
 
   stylix = {
     enable = true;
@@ -36,7 +35,10 @@ with lib.atomnix; {
   };
 
   atomnix = {
-    hardware.network = enabled;
+    hardware = {
+      network = enabled;
+      laptop = enabled;
+    };
     system = {
       locale = enabled;
       greetd = enabled;
@@ -44,7 +46,10 @@ with lib.atomnix; {
     graphical.desktop = "hyprland";
   };
 
-  services.flatpak.enable = true;
+  services = {
+    autorandr = enabled;
+    flatpak = enabled;
+  };
 
   environment.systemPackages = [
     inputs.nixvim.packages.${system}.default
