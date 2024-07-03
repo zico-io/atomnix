@@ -27,6 +27,11 @@ in {
       zsh = enabled;
     };
 
+    programs = {
+      atuin = enabled;
+      navi = enabled;
+    };
+
     home.packages = with pkgs; [
       ### File management
       unzip
