@@ -13,4 +13,6 @@ in {
   atomnix = {
     tools.common = enabled;
   };
+
+  home.sessionVariables = {EDITOR = "nvim";};
 }
