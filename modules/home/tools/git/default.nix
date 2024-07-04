@@ -21,7 +21,8 @@ in {
         userName = "Nico Zamora";
         userEmail = "dev@zico.xyz";
         extraConfig = {
-          init = {defaultBranch = "main";};
+          init.defaultBranch = "main";
+          push.autoSetupRemote = enabled;
           url = {
             "ssh://git@github.com" = {
               insteadOf = "https://github.com";
