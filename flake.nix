@@ -52,6 +52,7 @@
       ];
 
       # homes.modules = with inputs; [
+      #   stylix.homeManagerModules.stylix
       # ];
     };
 }

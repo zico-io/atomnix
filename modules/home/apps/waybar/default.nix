@@ -13,7 +13,38 @@ in {
   };
 
   config = mkIf cfg.enable {
+    stylix.targets.waybar.enable = false;
     home.packages = with pkgs; [pavucontrol];
+    programs.wlogout = {
+      enable = true;
+
+      layout = [
+        {
+          "label" = "logout";
+          "action" = "loginctl terminate-user $USER";
+          "text" = "󰍃";
+          "keybind" = "e";
+        }
+        {
+          "label" = "shutdown";
+          "action" = "systemctl poweroff";
+          "text" = "";
+          "keybind" = "s";
+        }
+        {
+          "label" = "reboot";
+          "action" = "systemctl reboot";
+          "text" = "";
+          "keybind" = "r";
+        }
+      ];
+
+      style = ''
+        window {
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+      '';
+    };
     programs.waybar = {
       enable = true;
       systemd.enable = true;
@@ -25,41 +56,64 @@ in {
           margin = "5 2 5 0";
           reload_style_on_change = true;
           modules-left = [
+            "custom/logo"
+            "custom/seperator"
             "hyprland/workspaces"
-            "hyprland/mode"
-            "hyprland/scratchpad"
-            # "custom/media"
+            "custom/seperator"
+            "cpu"
+            "custom/seperator"
+            "memory"
+            "custom/seperator"
+            "disk"
           ];
-          modules-center = ["hyprland/window"];
-          modules-right = ["idle_inhibitor" "temperature" "cpu" "memory" "network" "pulseaudio" "backlight" "keyboard-state" "battery" "battery#bat2" "tray" "clock"];
+          modules-center = ["clock"];
+          modules-right = [
+            "pulseaudio"
+            "custom/seperator"
+            "backlight"
+            "custom/seperator"
+            "network"
+            "custom/seperator"
+            "battery"
+            "custom/seperator"
+            "custom/sysmenu"
+          ];
 
-          "keyboard-state" = {
-            numlock = true;
-            format = "{name} {icon}";
-            format-icons = {
-              "locked" = "";
-              "unlocked" = "";
-            };
+          "custom/sysmenu" = {
+            format = " 󰐥 ";
+            on-click = "exec wlogout -p layer-shell";
           };
 
-          "hyprland/mode" = {
-            format = "<span style=\"italic\">{}</span>";
+          "custom/logo" = {
+            format = "  ";
+            on-click = "${pkgs.wofi}/bin/wofi --show drun";
           };
 
-          "hyprland/scratchpad" = {
-            format = "{icon} {count}";
-            show-empty = false;
-            format-icons = ["" ""];
-            tooltip = true;
-            tooltip-format = "{app}: {title}";
+          # TODO: Find a better solution for module seperators
+          "custom/seperator" = {
+            # format = "";
+            format = "|";
+            tooltip = false;
           };
 
-          "idle_inhibitor" = {
+          "hyprland/workspaces" = {
+            on-click = "activate";
             format = "{icon}";
+            all-outputs = true;
+            disable-scroll = true;
             format-icons = {
-              "activated" = "";
-              "deactivated" = "";
+              # "1" = "";
+              # "2" = "";
+              # "3" = "";
+              # "4" = "";
+              # "5" = "";
+              "default" = "󰍹";
+              "active" = "";
+              "urgent" = "";
+              "empty" = "";
+              "persistent" = "";
             };
+            persistent-workspaces = {"*" = 5;};
           };
 
           "tray" = {
@@ -67,16 +121,23 @@ in {
           };
 
           "clock" = {
-            tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-            format = "{:L%Y-%m-%d %I:%M}";
+            tooltip-format = "<big>{:%d %B, %Y}</big>\n<tt><small>{calendar}</small></tt>";
+            format = " {:L%H:%M}";
           };
 
           "cpu" = {
-            format = " {usage}%";
+            format = "󰄧 {usage}%";
+            min-length = 5;
           };
 
           "memory" = {
-            format = " {}%";
+            format = " {used}GiB";
+          };
+
+          "disk" = {
+            interval = 10;
+            unit = "GB";
+            format = " {free}";
           };
 
           "temperature" = {
@@ -101,17 +162,13 @@ in {
             format = "{icon} {capacity}%";
             format-charging = " {capacity}%";
             format-plugged = " {capacity}%";
-            format-icons = ["" "" "" "" ""];
-          };
-
-          "battery#bat2" = {
-            bat = "BAT2";
+            format-icons = [" " " " " " " " " "];
           };
 
           "network" = {
-            format-wifi = " ";
-            format-ethernet = " {ifname}";
-            tooltip-format = " {ifname} via {gwaddr}";
+            format-wifi = "  {bandwidthDownBytes} - {bandwidthUpBytes}";
+            format-ethernet = "  {bandwidthDownBytes} - {bandwidthUpBytes}";
+            tooltip-format = "{ifname} via {essid}: {gwaddr}";
             format-linked = " {ifname} (No IP)";
             format-disconnected = "Disconnected ⚠ {ifname}";
             format-alt = " {ifname}: {ipaddr}/{cidr}";
@@ -119,124 +176,127 @@ in {
 
           "pulseaudio" = {
             scroll-step = 5;
-            format = "{icon} {volume}%";
+            format = "{icon}";
             format-bluetooth = " {icon} {volume}%";
             format-bluetooth-muted = "  {icon}";
-            format-muted = "  ";
+            format-muted = "󰝟 ";
             # format-source = " {volume}%";
             # format-source-muted = "";
             format-icons = {
-              default = ["" "" ""];
+              default = [" " " " " "];
             };
-            on-click = "pavucontrol";
-            on-click-right = "foot -a pw-top pw-top";
+            on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
+            # on-click-right = "foot -a pw-top pw-top";
           };
         }
       ];
       style = ''
-                      * {
-            border: none;
-            font-size: 14px;
-            font-family: "Liga SFMono Nerd Font" ;
-            min-height: 25px;
-            color: white;
+                                      * {
+                            border: none;
+                            font-size: 14px;
+                            font-family: "Liga SFMono Nerd Font" ;
+                            min-height: 25px;
+                            color: white;
+                            opacity: 0.98;
+                        }
+
+                        window#waybar {
+                          background: transparent;
+                          margin: 5px;
+                         }
+
+                        #custom-logo,
+                        #custom-sysmenu,
+                        #pulseaudio {
+                          font-size: 18px;
+                          padding: 0 5px;
+                        }
+
+                #custom-seperator {
+                 padding: 1;
+                 opacity: 0.33;
+                }
+
+                        .modules-right {
+                          padding: 0 15px;
+                          border-radius: 15px;
+                          margin: 2px 5px;
+                          background: rgba(60, 56, 54, 0.95);
+                        }
+
+                        .modules-center {
+                          padding: 0 15px;
+                          border-radius: 15px;
+                          margin: 2px 0px;
+                          background: rgba(60, 56, 54, 0.95);
+                        }
+
+                        .modules-left {
+                          padding: 0 5px;
+                          border-radius: 15px;
+                          margin: 2px 5px;
+                          background: rgba(60, 56, 54, 0.95);
+                        }
+
+                        #battery,
+                        #custom-clipboard,
+                        #custom-colorpicker,
+                        #custom-powerDraw,
+                        #bluetooth,
+                        #network,
+                        #disk,
+                        #memory,
+                        #backlight,
+                        #cpu,
+                        #temperature,
+                        #custom-weather,
+                        #idle_inhibitor,
+                        #jack,
+                        #tray,
+                        #window,
+                        #clock {
+                          padding: 0 5px;
+                        }
+
+        #workspaces {
+          margin: 0;
         }
 
-        window#waybar {
-          background: transparent;
-          margin: 5px;
-         }
+                        #temperature.critical {
+                          color: #FF0000;
+                          padding-top: 0;
+                        }
 
-        #custom-logo {
-          padding: 0 10px;
-        }
+                        #clock{
+                          color: #5fd1fa;
+                        }
 
-        .modules-right {
-          padding: 0 15px;
-          border-radius: 15px;
-          margin: 2px 5px;
-          background: rgba(60, 56, 54, 0.8);
-        }
+                        #battery.charging {
+                            color: #ffffff;
+                            background-color: #26A65B;
+                        }
 
-        .modules-center {
-          padding: 0 15px;
-          border-radius: 15px;
-          margin: 2px 0px;
-          background: rgba(60, 56, 54, 0.8);
-        }
+                        #battery.warning:not(.charging) {
+                            background-color: #ffbe61;
+                            color: black;
+                        }
 
-        .modules-left {
-          padding: 0 5px;
-          border-radius: 15px;
-          margin: 2px 5px;
-          background: rgba(60, 56, 54, 0.8);
-        }
+                        #battery.critical:not(.charging) {
+                            background-color: #f53c3c;
+                            color: #ffffff;
+                            animation-name: blink;
+                            animation-duration: 0.5s;
+                            animation-timing-function: linear;
+                            animation-iteration-count: infinite;
+                            animation-direction: alternate;
+                        }
 
-        #battery,
-        #custom-clipboard,
-        #custom-colorpicker,
-        #custom-powerDraw,
-        #bluetooth,
-        #pulseaudio,
-        #network,
-        #disk,
-        #memory,
-        #backlight,
-        #cpu,
-        #temperature,
-        #custom-weather,
-        #idle_inhibitor,
-        #jack,
-        #tray,
-        #window,
-        #workspaces,
-        #clock {
-          padding: 0 5px;
-        }
-        #pulseaudio {
-          padding-top: 3px;
-        }
-
-        #temperature.critical,
-        #pulseaudio.muted {
-          color: #FF0000;
-          padding-top: 0;
-        }
-
-
-
-
-        #clock{
-          color: #5fd1fa;
-        }
-
-        #battery.charging {
-            color: #ffffff;
-            background-color: #26A65B;
-        }
-
-        #battery.warning:not(.charging) {
-            background-color: #ffbe61;
-            color: black;
-        }
-
-        #battery.critical:not(.charging) {
-            background-color: #f53c3c;
-            color: #ffffff;
-            animation-name: blink;
-            animation-duration: 0.5s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
-
-
-        @keyframes blink {
-            to {
-                background-color: #ffffff;
-                color: #000000;
-            }
-        }
+                        @keyframes blink {
+                            to {
+                                background-color: #ffffff;
+                                color: #000000;
+                            }
+                        }
       '';
     };
   };

@@ -33,6 +33,7 @@ in {
               "CascadiaCode" # Windows Terminal default font
               "FiraCode" # Best ligature-featured font
               "JetBrainsMono" # Daily-driver for development
+              "NerdFontsSymbolsOnly"
             ];
           })
         ]

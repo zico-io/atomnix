@@ -25,6 +25,7 @@ with lib.atomnix; {
     enable = true;
     polarity = "dark";
     image = ./wp.png;
+    homeManagerIntegration.autoImport = true;
     base16Scheme = "${inputs.tt-schemes}/base16/gruvbox-dark-pale.yaml";
     fonts = {
       monospace = {
