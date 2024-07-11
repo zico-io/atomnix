@@ -16,12 +16,13 @@ in {
   };
 
   config = mkIf (cfg.desktop == "hyprland") {
-    home.packages = with pkgs; [wofi];
+    # home.packages = with pkgs; [wofi];
 
     atomnix = {
       apps = {
         waybar = enabled;
         foot = enabled;
+        rofi = enabled;
       };
 
       tools = {
@@ -139,7 +140,7 @@ in {
           "$mod1,Return,exec,foot"
           "$mod1 SHIFT,Return,exec,kitty"
           "$mod1,B,exec,firefox"
-          "$mod1,space,exec,${pkgs.wofi}/bin/wofi --show drun"
+          "$mod1,space,exec,${pkgs.rofi-wayland}/bin/rofi -show drun"
         ];
       };
     };

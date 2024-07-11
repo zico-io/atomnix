@@ -15,36 +15,6 @@ in {
   config = mkIf cfg.enable {
     stylix.targets.waybar.enable = false;
     home.packages = with pkgs; [pavucontrol];
-    programs.wlogout = {
-      enable = true;
-
-      layout = [
-        {
-          "label" = "logout";
-          "action" = "loginctl terminate-user $USER";
-          "text" = "󰍃";
-          "keybind" = "e";
-        }
-        {
-          "label" = "shutdown";
-          "action" = "systemctl poweroff";
-          "text" = "";
-          "keybind" = "s";
-        }
-        {
-          "label" = "reboot";
-          "action" = "systemctl reboot";
-          "text" = "";
-          "keybind" = "r";
-        }
-      ];
-
-      style = ''
-        window {
-          background-color: rgba(0, 0, 0, 0.6);
-        }
-      '';
-    };
     programs.waybar = {
       enable = true;
       systemd.enable = true;
@@ -81,12 +51,12 @@ in {
 
           "custom/sysmenu" = {
             format = " 󰐥 ";
-            on-click = "exec wlogout -p layer-shell";
+            on-click = "exec ~/.config/rofi/scripts/powermenu_t2";
           };
 
           "custom/logo" = {
             format = "  ";
-            on-click = "${pkgs.wofi}/bin/wofi --show drun";
+            on-click = "exec ~/.config/rofi/scripts/launcher_t2";
           };
 
           # TODO: Find a better solution for module seperators

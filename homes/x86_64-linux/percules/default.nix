@@ -12,6 +12,7 @@ with lib.atomnix; let
 in {
   atomnix = {
     tools.common = enabled;
+    apps.nwg = enabled;
   };
 
   home.sessionVariables = {EDITOR = "nvim";};
