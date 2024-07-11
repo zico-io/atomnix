@@ -13,6 +13,20 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.helix = enabled;
+    programs.helix = {
+      enable = true;
+      settings = {
+        editor = {
+          line-number = "relative";
+          auto-format = true;
+          lsp.display-messages = true;
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
+        };
+      };
+    };
   };
 }

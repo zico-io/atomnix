@@ -140,7 +140,7 @@ in {
           "$mod1,Return,exec,foot"
           "$mod1 SHIFT,Return,exec,kitty"
           "$mod1,B,exec,firefox"
-          "$mod1,space,exec,${pkgs.rofi-wayland}/bin/rofi -show drun"
+          "$mod1,space,exec,/home/percules/.config/rofi/scripts/launcher_t1"
         ];
       };
     };

@@ -26,7 +26,7 @@ in {
           margin = "5 2 5 0";
           reload_style_on_change = true;
           modules-left = [
-            "custom/logo"
+            "pulseaudio"
             "custom/seperator"
             "hyprland/workspaces"
             "custom/seperator"
@@ -38,8 +38,7 @@ in {
           ];
           modules-center = ["clock"];
           modules-right = [
-            "pulseaudio"
-            "custom/seperator"
+            
             "backlight"
             "custom/seperator"
             "network"
@@ -50,13 +49,8 @@ in {
           ];
 
           "custom/sysmenu" = {
-            format = " 󰐥 ";
+            format = " 󰐥";
             on-click = "exec ~/.config/rofi/scripts/powermenu_t2";
-          };
-
-          "custom/logo" = {
-            format = "  ";
-            on-click = "exec ~/.config/rofi/scripts/launcher_t2";
           };
 
           # TODO: Find a better solution for module seperators
@@ -146,10 +140,10 @@ in {
 
           "pulseaudio" = {
             scroll-step = 5;
-            format = "{icon}";
+            format = " {icon}";
             format-bluetooth = " {icon} {volume}%";
             format-bluetooth-muted = "  {icon}";
-            format-muted = "󰝟 ";
+            format-muted = " 󰝟 ";
             # format-source = " {volume}%";
             # format-source-muted = "";
             format-icons = {
