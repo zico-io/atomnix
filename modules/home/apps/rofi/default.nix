@@ -9,7 +9,7 @@ with lib.atomnix; let
   cfg = config.atomnix.apps.rofi;
 in {
   options.atomnix.apps.rofi = with types; {
-    enable = mkBoolOpt falst "Enable rofi-wayland?";
+    enable = mkBoolOpt false "Enable rofi-wayland?";
   };
 
   config = mkIf cfg.enable {

@@ -15,7 +15,6 @@ in {
     apps = {
       firefox = enabled;
       vscode = enabled;
-      helix = enabled;
     };
   };
 
