@@ -21,20 +21,6 @@ with lib.atomnix; {
     steam = enabled;
   };
 
-  stylix = {
-    enable = true;
-    polarity = "dark";
-    image = ./wp.png;
-    homeManagerIntegration.autoImport = true;
-    base16Scheme = "${inputs.tt-schemes}/base16/gruvbox-dark-pale.yaml";
-    fonts = {
-      monospace = {
-        package = pkgs.sf-mono-liga;
-        name = "Liga SFMono Nerd Font";
-      };
-    };
-  };
-
   atomnix = {
     hardware = {
       network = enabled;
@@ -43,6 +29,7 @@ with lib.atomnix; {
     system = {
       locale = enabled;
       greetd = enabled;
+      stylix = enabled;
     };
     graphical.desktop = "hyprland";
   };

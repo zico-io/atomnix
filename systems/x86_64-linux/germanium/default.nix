@@ -21,24 +21,14 @@ with lib.atomnix; {
     zsh = enabled;
   };
 
-  atomnix.system.locale = enabled;
+  atomnix.system = {
+    locale = enabled;
+    stylix = enabled;
+    };
 
   wsl = {
     enable = true;
     defaultUser = "percules";
-  };
-
-  stylix = {
-    enable = true;
-    polarity = "dark";
-    image = ./wp.png;
-    base16Scheme = "${inputs.tt-schemes}/base16/gruvbox-dark-pale.yaml";
-    fonts = {
-      monospace = {
-        package = pkgs.sf-mono-liga;
-        name = "Liga SFMono Nerd Font";
-      };
-    };
   };
 
   environment.systemPackages = [

@@ -50,9 +50,5 @@
       systems.hosts.germanium.modules = with inputs; [
         nixos-wsl.nixosModules.default
       ];
-
-      # homes.modules = with inputs; [
-      #   stylix.homeManagerModules.stylix
-      # ];
     };
 }
