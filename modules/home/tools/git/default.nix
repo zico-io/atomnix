@@ -13,6 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [ gitui ];
     programs = {
       lazygit = enabled;
       git = {
@@ -22,7 +23,7 @@ in {
         userEmail = "dev@zico.xyz";
         extraConfig = {
           init.defaultBranch = "main";
-          push.autoSetupRemote = enabled;
+          push.autoSetupRemote = true;
           url = {
             "ssh://git@github.com" = {
               insteadOf = "https://github.com";

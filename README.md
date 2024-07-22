@@ -1,7 +1,7 @@
-### Nixvim
+## atomnix
 
-Make sure to run the following command to authorize copilot when first setting up the system
+### Libraries
 
-```
-:Copilot auth
-```
+- [snowfall-lib](https://github.com/snowfallorg/lib)
+- [stylix](https://github.com/danth/stylix)
+- [Tinted Theming](https://github.com/tinted-theming/schemes)
