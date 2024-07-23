@@ -30,6 +30,7 @@ with lib.atomnix; {
       locale = enabled;
       greetd = enabled;
       stylix = enabled;
+      kanata = enabled;
     };
     graphical.desktop = "hyprland";
   };

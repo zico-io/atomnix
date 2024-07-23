@@ -24,7 +24,7 @@ with lib.atomnix; {
   atomnix.system = {
     locale = enabled;
     stylix = enabled;
-    };
+  };
 
   wsl = {
     enable = true;
