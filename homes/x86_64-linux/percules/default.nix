@@ -10,7 +10,10 @@ with lib.atomnix;
 
 {
   atomnix = {
-    tools.common = enabled;
+    tools = {
+      common = enabled;
+      dev = enabled;
+    };
     apps.helix = enabled;
   };
 
