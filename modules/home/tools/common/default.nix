@@ -48,6 +48,7 @@ in {
       xclip
       imagemagick
       ffmpeg-full
+      pipx
 
       ### Shell apps
       du-dust

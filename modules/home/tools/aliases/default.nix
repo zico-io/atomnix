@@ -21,6 +21,9 @@ with lib.atomnix; let
     # nh
     rustdev = "nix develop -c nushell";
 
+    # inception
+    incept = "pipx run copier copy --trust gh:DataChefHq/Inception .";
+
     # dust
     dust = "du -b";
   };
