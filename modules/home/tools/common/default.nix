@@ -48,7 +48,11 @@ in {
       xclip
       imagemagick
       ffmpeg-full
+
+      ### Dev utils
       pipx
+      nodejs_22
+      corepack_22
 
       ### Shell apps
       du-dust
