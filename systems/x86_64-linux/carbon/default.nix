@@ -40,9 +40,8 @@ with lib.atomnix; {
     flatpak = enabled;
   };
 
-  environment.systemPackages = [
-    inputs.nixvim.packages.${system}.default
-    pkgs.devenv
+  environment.systemPackages = with pkgs; [
+    devenv
   ];
 
   system.stateVersion = "24.05";
