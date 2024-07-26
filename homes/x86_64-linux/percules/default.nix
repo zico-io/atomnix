@@ -13,6 +13,7 @@ with lib.atomnix;
     tools = {
       common = enabled;
       dev = enabled;
+      tmux = enabled;
     };
     apps.helix = enabled;
   };
