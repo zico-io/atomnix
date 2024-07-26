@@ -28,6 +28,11 @@
       flake = false;
     };
 
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,6 +52,10 @@
       channels-config.allowUnfree = true;
 
       src = ./.;
+
+      overlays = with inputs; [
+        fenix.overlays.default
+      ];
 
       systems.modules.nixos = with inputs; [
         stylix.nixosModules.stylix
