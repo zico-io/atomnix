@@ -21,9 +21,15 @@ with lib.atomnix; {
     zsh = enabled;
   };
 
-  atomnix.system = {
-    locale = enabled;
-    stylix = enabled;
+  atomnix = {
+    system = {
+      locale = enabled;
+      stylix = enabled;
+    };
+
+    tools = {
+      docker = enabled;
+    };
   };
 
   wsl = {

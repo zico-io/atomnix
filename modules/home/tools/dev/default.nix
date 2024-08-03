@@ -12,6 +12,12 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      ### Cloud
+      azure-cli
+
+      ### Kubernetes
+      kubectl
+      
       ### Python
       pipx
 
