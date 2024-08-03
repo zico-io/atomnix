@@ -28,6 +28,7 @@ in {
     programs.helix = {
       enable = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
       package = helixWrapped;
       
       settings.editor = {
@@ -39,6 +40,8 @@ in {
           normal = "block";
           select = "underline";
 =======
+=======
+>>>>>>> 6a75d4f (Add typescript lsp)
       languages = [
         {
           name = "typescript";
