@@ -24,8 +24,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [nodePackages.typescript-language-server];
     programs.helix = {
       enable = true;
+<<<<<<< HEAD
       package = helixWrapped;
       
       settings.editor = {
@@ -36,6 +38,24 @@ in {
           insert = "bar";
           normal = "block";
           select = "underline";
+=======
+      languages = [
+        {
+          name = "typescript";
+          auto-format = true;
+        }
+      ];
+      settings = {
+        editor = {
+          line-number = "relative";
+          auto-format = true;
+          lsp.display-messages = true;
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
+>>>>>>> 6a75d4f (Add typescript lsp)
         };
       };
       languages = {
