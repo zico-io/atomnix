@@ -1,5 +1,5 @@
 {
-  description = "AtomNix snowfall";
+  description = "atomNix snowfall";
 
   nixConfig = {
     extra-substituters = [ "https://devenv.cachix.org" ];
@@ -43,7 +43,8 @@
     };
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
 
@@ -52,16 +53,10 @@
 
       src = ./.;
 
-      overlays = with inputs; [
-        fenix.overlays.default
-      ];
+      overlays = with inputs; [ fenix.overlays.default ];
 
-      systems.modules.nixos = with inputs; [
-        stylix.nixosModules.stylix
-      ];
+      systems.modules.nixos = with inputs; [ stylix.nixosModules.stylix ];
 
-      systems.hosts.germanium.modules = with inputs; [
-        nixos-wsl.nixosModules.default
-      ];
+      systems.hosts.germanium.modules = with inputs; [ nixos-wsl.nixosModules.default ];
     };
 }
