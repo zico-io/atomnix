@@ -14,6 +14,10 @@ in {
     programs.tmux = {
       enable = true;
       terminal = "tmux-256color";
+      prefix = "C-s";
+      plugins = with pkgs; [
+        tmuxPlugins.sensible
+      ];
     };
   };
 }
