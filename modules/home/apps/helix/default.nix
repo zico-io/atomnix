@@ -43,19 +43,13 @@ in
           };
         };
 
-        keys = {
-          normal = {
-            C.g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80% -h80% -E gitui";
-          };
+        keys.normal = {
+          C.g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80% -h80% -E gitui";
         };
       };
 
       languages = {
-        language-server = {
-          nixd = {
-            command = "nixd";
-          };
-        };
+        language-server.nixd.command = "nixd";
         language = [
           {
             name = "typescript";
