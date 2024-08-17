@@ -11,6 +11,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.tmux = enabled;
+    programs.tmux = {
+      enable = true;
+      terminal = "tmux-256color";
+    };
   };
 }
