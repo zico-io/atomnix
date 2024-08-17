@@ -5,10 +5,12 @@
   ...
 }:
 with lib;
-with lib.atomnix; let
+with lib.atomnix;
+let
   cfg = config.atomnix.apps.helix;
   helixPkgs = with pkgs; [
     nixd
+    nixfmt-rfc-style
     rust-analyzer
     nodePackages.bash-language-server
     nodePackages.yaml-language-server
@@ -18,61 +20,84 @@ with lib.atomnix; let
     PATH="${lib.makeBinPath helixPkgs}:$PATH"
     ${pkgs.helix}/bin/hx "$@"
   '';
-in {
+in
+{
   options.atomnix.apps.helix = with types; {
     enable = mkBoolOpt false "Enable helix?";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [nodePackages.typescript-language-server];
     programs.helix = {
       enable = true;
       package = helixWrapped;
-      
-      settings = {
-      editor = {
-        auto-format = true;
-        line-number = "relative";
-        lsp.display-messages = true;
-        cursor-shape = {
-          insert = "bar";
-          normal = "block";
-          select = "underline";
-        };
-      };
 
-      keys = {
-        normal = {
-          C.g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80% -h80% -E gitui";
+      settings = {
+        editor = {
+          auto-format = true;
+          line-number = "relative";
+          lsp.display-messages = true;
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
         };
-      };
+
+        keys = {
+          normal = {
+            C.g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80% -h80% -E gitui";
+          };
+        };
       };
 
       languages = {
         language-server = {
-          nixd = { command = "nixd"; };
+          nixd = {
+            command = "nixd";
+          };
         };
         language = [
-        {
-          name = "typescript";
-          auto-format = true;
-          formatter = { command = "prettier"; args = ["--parser" "typescript"]; };
-        }
-        {
-          name = "tsx";
-          auto-format = true;
-          formatter = { command = "prettier"; args = ["--parser" "typescript"]; };
-        }
-        {
-          name = "jsx";
-          auto-format = true;
-          formatter = { command = "prettier"; args = ["--parser" "typescript"]; };
-        }
-        {
-          name = "nix";
-          language-servers = [ "nixd" ];
-          auto-format = true;
-        }
+          {
+            name = "typescript";
+            auto-format = true;
+            formatter = {
+              command = "prettier";
+              args = [
+                "--parser"
+                "typescript"
+              ];
+            };
+          }
+          {
+            name = "tsx";
+            auto-format = true;
+            formatter = {
+              command = "prettier";
+              args = [
+                "--parser"
+                "typescript"
+              ];
+            };
+          }
+          {
+            name = "jsx";
+            auto-format = true;
+            formatter = {
+              command = "prettier";
+              args = [
+                "--parser"
+                "typescript"
+              ];
+            };
+          }
+          {
+            name = "nix";
+            language-servers = [ "nixd" ];
+            auto-format = true;
+            formatter = {
+              command = "nixfmt";
+            };
+          }
         ];
       };
     };
