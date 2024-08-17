@@ -27,11 +27,10 @@ in {
     home.packages = with pkgs; [nodePackages.typescript-language-server];
     programs.helix = {
       enable = true;
-<<<<<<< HEAD
-<<<<<<< HEAD
       package = helixWrapped;
       
-      settings.editor = {
+      settings = {
+      editor = {
         auto-format = true;
         line-number = "relative";
         lsp.display-messages = true;
@@ -39,28 +38,16 @@ in {
           insert = "bar";
           normal = "block";
           select = "underline";
-=======
-=======
->>>>>>> 6a75d4f (Add typescript lsp)
-      languages = [
-        {
-          name = "typescript";
-          auto-format = true;
-        }
-      ];
-      settings = {
-        editor = {
-          line-number = "relative";
-          auto-format = true;
-          lsp.display-messages = true;
-          cursor-shape = {
-            insert = "bar";
-            normal = "block";
-            select = "underline";
-          };
->>>>>>> 6a75d4f (Add typescript lsp)
         };
       };
+
+      keys = {
+        normal = {
+          C.g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80% -h80% -E gitui";
+        };
+      };
+      };
+
       languages = {
         language-server = {
           nixd = { command = "nixd"; };
@@ -88,6 +75,6 @@ in {
         }
         ];
       };
-   };
+    };
   };
 }

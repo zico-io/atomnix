@@ -11,8 +11,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.tmux = {
-      enable = true;
-    };
+    programs.tmux = enabled;
   };
 }
