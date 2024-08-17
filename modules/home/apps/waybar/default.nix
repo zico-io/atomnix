@@ -5,16 +5,18 @@
   ...
 }:
 with lib;
-with lib.atomnix; let
+with lib.atomnix;
+let
   cfg = config.atomnix.apps.waybar;
-in {
+in
+{
   options.atomnix.apps.waybar = with types; {
     enable = mkBoolOpt false "Enable waybar?";
   };
 
   config = mkIf cfg.enable {
-    stylix.targets.waybar.enable = false;
-    home.packages = with pkgs; [pavucontrol];
+    # stylix.targets.waybar.enable = false;
+    home.packages = with pkgs; [ pavucontrol ];
     programs.waybar = {
       enable = true;
       systemd.enable = true;
@@ -36,9 +38,9 @@ in {
             "custom/seperator"
             "disk"
           ];
-          modules-center = ["clock"];
+          modules-center = [ "clock" ];
           modules-right = [
-            
+
             "backlight"
             "custom/seperator"
             "network"
@@ -77,7 +79,9 @@ in {
               "empty" = "";
               "persistent" = "";
             };
-            persistent-workspaces = {"*" = 5;};
+            persistent-workspaces = {
+              "*" = 5;
+            };
           };
 
           "tray" = {
@@ -110,12 +114,26 @@ in {
             critical-threshold = 80;
             format-critical = "{icon} {temperatureC}°C";
             format = "{icon} {temperatureC}°C";
-            format-icons = ["" "" ""];
+            format-icons = [
+              ""
+              ""
+              ""
+            ];
           };
 
           "backlight" = {
             format = "{icon} {percent}%";
-            format-icons = ["" "" "" "" "" "" "" "" ""];
+            format-icons = [
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+            ];
           };
 
           "battery" = {
@@ -126,7 +144,13 @@ in {
             format = "{icon} {capacity}%";
             format-charging = " {capacity}%";
             format-plugged = " {capacity}%";
-            format-icons = [" " " " " " " " " "];
+            format-icons = [
+              " "
+              " "
+              " "
+              " "
+              " "
+            ];
           };
 
           "network" = {
@@ -147,7 +171,11 @@ in {
             # format-source = " {volume}%";
             # format-source-muted = "";
             format-icons = {
-              default = [" " " " " "];
+              default = [
+                " "
+                " "
+                " "
+              ];
             };
             on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
             # on-click-right = "foot -a pw-top pw-top";

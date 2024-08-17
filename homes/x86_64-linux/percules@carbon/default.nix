@@ -10,9 +10,14 @@ with lib.atomnix;
 {
   atomnix = {
     graphical.desktop = "hyprland";
+    tools = {
+      common = enabled;
+      dev = enabled;
+      tmux = enabled;
+    };
     apps = {
       firefox = enabled;
-      vscode = enabled;
+      helix = enabled;
     };
   };
 
@@ -23,6 +28,10 @@ with lib.atomnix;
       vesktop
       tome4
     ];
+
+    sessionVariables = {
+      EDITOR = "hx";
+    };
 
     stateVersion = "23.11";
   };

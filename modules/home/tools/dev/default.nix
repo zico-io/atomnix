@@ -1,11 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.atomnix;
 
-let cfg = config.atomnix.tools.dev;
+let
+  cfg = config.atomnix.tools.dev;
 
-in {
+in
+{
   options.atomnix.tools.dev = with types; {
     enable = mkBoolOpt false "Enable developer tools?";
   };
@@ -17,14 +24,14 @@ in {
 
       ### Kubernetes
       kubectl
-      
+
       ### Python
       pipx
 
       ### JavaScript
       nodejs_22
       corepack_22
-      
+
       ### Terraform
       cosign
       tenv

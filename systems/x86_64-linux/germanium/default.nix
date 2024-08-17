@@ -6,17 +6,16 @@
   ...
 }:
 with lib;
-with lib.atomnix; {
-  imports = [
-    ./hardware.nix
-  ];
+with lib.atomnix;
+{
+  imports = [ ./hardware.nix ];
 
   programs = {
     ssh.startAgent = true;
-    nix-ld = {
-      enable = true;
-      package = pkgs.nix-ld-rs;
-    };
+    # nix-ld = {
+    #   enable = true;
+    #   package = pkgs.nix-ld-rs;
+    # };
     git = enabled;
     zsh = enabled;
   };
@@ -37,9 +36,7 @@ with lib.atomnix; {
     defaultUser = "percules";
   };
 
-  environment.systemPackages = with pkgs; [
-    devenv
-  ];
+  environment.systemPackages = with pkgs; [ devenv ];
 
   system.stateVersion = "24.05";
 }

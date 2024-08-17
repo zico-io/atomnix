@@ -5,9 +5,11 @@
   ...
 }:
 with lib;
-with lib.atomnix; let
+with lib.atomnix;
+let
   cfg = config.atomnix.tools.common;
-in {
+in
+{
   options.atomnix.tools.common = with types; {
     enable = mkBoolOpt false "Enable common tools?";
   };
