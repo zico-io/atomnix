@@ -3,7 +3,6 @@ with lib;
 with lib.atomnix;
 {
   atomnix = {
-    suites.work = enabled;
     tools = {
       dev = enabled;
       tmux = enabled;
