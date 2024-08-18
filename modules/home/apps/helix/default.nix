@@ -36,6 +36,14 @@ in
           auto-format = true;
           line-number = "relative";
           lsp.display-messages = true;
+          statusline = {
+            left = [
+              "mode"
+              "spinner"
+              "version-control"
+            ];
+            center = [ "file-name" ];
+          };
           cursor-shape = {
             insert = "bar";
             normal = "block";
@@ -45,6 +53,10 @@ in
 
         keys.normal = {
           C.g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80% -h80% -E gitui";
+          esc = [
+            "collapse_selection"
+            "keep_primary_selection"
+          ];
         };
       };
 
