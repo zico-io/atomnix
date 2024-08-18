@@ -6,15 +6,8 @@
 }:
 with lib;
 with lib.atomnix;
-let
-  cfg = config.atomnix.tools.common;
-in
 {
-  options.atomnix.tools.common = with types; {
-    enable = mkBoolOpt false "Enable common tools?";
-  };
-
-  config = mkIf cfg.enable {
+  config = {
     atomnix.tools = {
       aliases = enabled;
       bat = enabled;
@@ -24,7 +17,6 @@ in
       git = enabled;
       ripgrep = enabled;
       yazi = enabled;
-      zellij = enabled;
       zoxide = enabled;
       zsh = enabled;
     };

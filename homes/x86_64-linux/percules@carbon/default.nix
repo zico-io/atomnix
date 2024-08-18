@@ -11,7 +11,6 @@ with lib.atomnix;
   atomnix = {
     graphical.desktop = "hyprland";
     tools = {
-      common = enabled;
       dev = enabled;
       tmux = enabled;
     };
