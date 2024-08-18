@@ -42,6 +42,9 @@ with lib.atomnix;
       xclip
       imagemagick
       ffmpeg-full
+      slides
+      graph-easy
+      marksman
 
       ### Shell apps
       du-dust
