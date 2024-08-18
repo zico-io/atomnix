@@ -12,10 +12,6 @@ with lib.atomnix;
 
   programs = {
     ssh.startAgent = true;
-    # nix-ld = {
-    #   enable = true;
-    #   package = pkgs.nix-ld-rs;
-    # };
     git = enabled;
     zsh = enabled;
   };
