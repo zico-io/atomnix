@@ -39,7 +39,6 @@ in
           statusline = {
             left = [
               "mode"
-              "spinner"
               "version-control"
             ];
             center = [ "file-name" ];
